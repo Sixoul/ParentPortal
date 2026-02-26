@@ -7,14 +7,13 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(data => {
             placeholder.innerHTML = data;
             
-            // Highlight the active page
+            // Highlight active page
             const currentPage = window.location.pathname.split("/").pop() || "index.html";
-            const links = document.querySelectorAll(".nav-link, .b-link");
-            links.forEach(link => {
+            document.querySelectorAll(".nav-link, .b-link").forEach(link => {
                 if (link.getAttribute("href") === currentPage) {
                     link.classList.add("active-link");
                 }
             });
         })
-        .catch(err => console.error("Could not load navigation:", err));
+        .catch(err => console.error("Nav Load Error. Remember to use Live Server!", err));
 });

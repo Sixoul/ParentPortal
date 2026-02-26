@@ -5,22 +5,19 @@
     <link rel="stylesheet" href="style.css">
     <title>Login | Ninja Portal</title>
 </head>
-<body class="login-body">
-    <div class="login-card">
-        <h1>NINJA LOGIN</h1>
-        <input type="email" id="email" placeholder="Email (parent@test.com)">
-        <input type="password" id="password" placeholder="Password">
-        <button onclick="handleLogin()">Login</button>
+<body style="background: var(--ninja-black); display: flex; align-items: center; justify-content: center;">
+    <div style="background: white; padding: 40px; border-radius: 12px; width: 320px; text-align: center;">
+        <h1 style="color: var(--ninja-red);">NINJA LOGIN</h1>
+        <input type="email" id="email" placeholder="Email" style="width:100%; padding:10px; margin:10px 0; border:1px solid #ddd;">
+        <button onclick="login()" style="width:100%; background: var(--ninja-red); color:white; border:none; padding:12px; cursor:pointer; font-weight:bold;">Enter Portal</button>
     </div>
-
     <script>
-        function handleLogin() {
+        function login() {
             const email = document.getElementById('email').value;
-            const role = email.includes('sensei') ? 'sensei' : 'parent';
             localStorage.setItem("ninjaSession", JSON.stringify({
                 isLoggedIn: true, 
-                role: role, 
-                name: role === 'sensei' ? "Sensei Smith" : "Ninja Parent"
+                role: email.includes('sensei') ? 'sensei' : 'parent',
+                name: "Ninja Member"
             }));
             window.location.href = "dashboard.html";
         }

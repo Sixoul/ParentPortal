@@ -11,52 +11,53 @@ body, html {
     margin: 0; padding: 0; height: 100%;
     font-family: 'Segoe UI', sans-serif;
     background-color: var(--bg-light);
+    overflow: hidden; /* Prevents double scrollbars */
 }
 
-/* Layout Structure */
 .app-container { display: flex; height: 100vh; }
+
 .main-content {
-    flex-grow: 1; margin-left: var(--nav-width);
-    padding: 30px; overflow-y: auto;
+    flex-grow: 1;
+    margin-left: var(--nav-width);
+    display: flex;
+    flex-direction: column; /* Allows iframe to fill bottom space */
+    height: 100vh;
+    box-sizing: border-box;
 }
 
-/* Sidebar (Desktop) */
+/* Sidebar */
 .side-nav {
     width: var(--nav-width); background: var(--ninja-black);
     color: white; height: 100vh; position: fixed;
     display: flex; flex-direction: column;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.3);
 }
-.side-nav h1 { padding: 20px; color: var(--ninja-red); text-align: center; font-size: 1.4rem; border-bottom: 1px solid var(--ninja-dark-gray); }
+
+.side-nav h1 { padding: 20px; color: var(--ninja-red); text-align: center; margin: 0; }
+
+.nav-link, .b-link { color: #bbb; text-decoration: none; padding: 15px 25px; transition: 0.3s; border-bottom: 1px solid #222; }
+.nav-link:hover, .active-link { color: white; background: var(--ninja-dark-gray); border-left: 4px solid var(--ninja-red); }
+
+/* Iframe Full-Fill Logic */
+.iframe-container {
+    flex-grow: 1; /* This pushes the iframe to fill all remaining space */
+    width: 100%;
+    border: none;
+    background: white;
+}
 
 /* Bottom Nav (Mobile) */
 .bottom-nav {
     display: none; position: fixed; bottom: 0; width: 100%;
     height: var(--bottom-nav-height); background: var(--ninja-black);
     justify-content: space-around; align-items: center;
-    border-top: 3px solid var(--ninja-red); z-index: 1001;
+    border-top: 3px solid var(--ninja-red);
 }
 
-/* Navigation Links */
-.nav-link, .b-link { color: #bbb; text-decoration: none; padding: 15px; transition: 0.3s; }
-.nav-link:hover, .b-link:hover { color: white; background: var(--ninja-dark-gray); }
-.active-link { color: var(--ninja-red) !important; font-weight: bold; }
-
-/* Components */
-.card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 20px; }
-.badge { background: var(--ninja-red); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; }
-.progress-bar { background: #eee; height: 12px; border-radius: 6px; overflow: hidden; margin: 10px 0; }
-.fill { background: var(--ninja-red); height: 100%; transition: 0.5s; }
-
-/* Login Page Styles */
-.login-body { background: var(--ninja-black); display: flex; align-items: center; justify-content: center; height: 100vh; }
-.login-card { background: white; padding: 40px; border-radius: 12px; width: 350px; text-align: center; }
-.login-card input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
-.login-card button { width: 100%; background: var(--ninja-red); color: white; padding: 12px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
-
-/* Responsive */
 @media (max-width: 768px) {
     .side-nav { display: none; }
-    .main-content { margin-left: 0; padding-bottom: 90px; }
+    .main-content { 
+        margin-left: 0; 
+        height: calc(100vh - var(--bottom-nav-height)); 
+    }
     .bottom-nav { display: flex; }
 }
