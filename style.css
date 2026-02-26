@@ -1,0 +1,234 @@
+/* --- VARIABLES --- */
+:root {
+    --ninja-red: #d32f2f;
+    --ninja-black: #1a1a1a;
+    --ninja-dark-gray: #2d2d2d;
+    --bg-light: #f4f7f6;
+    --nav-width: 260px;
+    --bottom-nav-height: 70px;
+    --transition: 0.3s ease;
+}
+
+/* --- GLOBAL STYLES --- */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-light);
+    color: #333;
+}
+
+/* --- LAYOUT STRUCTURE --- */
+.app-container {
+    display: flex;
+    height: 100vh;
+}
+
+.main-content {
+    flex-grow: 1;
+    margin-left: var(--nav-width);
+    padding: 30px;
+    overflow-y: auto;
+    transition: margin var(--transition);
+}
+
+/* --- NAVIGATION (SIDEBAR) --- */
+.side-nav {
+    width: var(--nav-width);
+    background-color: var(--ninja-black);
+    color: white;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+    z-index: 1000;
+}
+
+.side-nav h1 {
+    padding: 20px;
+    font-size: 1.4rem;
+    color: var(--ninja-red);
+    text-align: center;
+    border-bottom: 1px solid var(--ninja-dark-gray);
+    margin: 0;
+}
+
+.nav-link {
+    padding: 18px 25px;
+    color: #bbb;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid #222;
+    transition: var(--transition);
+}
+
+.nav-link:hover {
+    background: var(--ninja-dark-gray);
+    color: white;
+    padding-left: 35px;
+}
+
+/* --- NAVIGATION (BOTTOM) --- */
+.bottom-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: var(--bottom-nav-height);
+    background-color: var(--ninja-black);
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1001;
+    border-top: 3px solid var(--ninja-red);
+}
+
+.b-link {
+    color: white;
+    text-decoration: none;
+    font-size: 0.75rem;
+    text-align: center;
+    flex: 1;
+}
+
+/* --- CARDS & UI ELEMENTS --- */
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}
+
+.badge {
+    background: var(--ninja-red);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.progress-bar {
+    background: #eee;
+    height: 12px;
+    border-radius: 6px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.fill {
+    background: var(--ninja-red);
+    height: 100%;
+    transition: width 0.5s ease-in-out;
+}
+
+/* --- LOGIN PAGE SPECIFIC --- */
+.login-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--ninja-black);
+}
+
+.login-card {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* --- RESPONSIVE BREAKPOINTS --- */
+@media (max-width: 768px) {
+    .side-nav {
+        display: none;
+    }
+    .main-content {
+        margin-left: 0;
+        padding-bottom: calc(var(--bottom-nav-height) + 20px);
+    }
+    .bottom-nav {
+        display: flex;
+    }
+}
+
+/* --- IFRAME PAGE STYLES (Schedule & Portal) --- */
+.iframe-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.iframe-wrapper {
+    flex-grow: 1;
+    margin-top: 20px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    background: white;
+}
+
+.iframe-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* --- PROGRESS TRACKER STYLES --- */
+.header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.student-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.sensei-panel {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.sensei-panel label {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #666;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-small {
+    flex: 1;
+    padding: 10px;
+    background: var(--ninja-black);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: var(--transition);
+}
+
+.btn-small:hover {
+    background: var(--ninja-red);
+}
+
+/* Mobile Tweak for Iframes */
+@media (max-width: 768px) {
+    .iframe-page {
+        height: calc(100vh - var(--bottom-nav-height));
+    }
+}
