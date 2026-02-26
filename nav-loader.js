@@ -1,21 +1,30 @@
-// nav-loader.js
 document.addEventListener("DOMContentLoaded", function() {
-    fetch("nav.html")
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById("nav-placeholder").innerHTML = data;
-            highlightActivePage();
-        });
+    const placeholder = document.getElementById("nav-placeholder");
+    
+    if (placeholder) {
+        fetch("nav.html")
+            .then(response => {
+                if (!response.ok) throw new Error("Failed to load nav.html");
+                return response.text();
+            })
+            .then(data => {
+                placeholder.innerHTML = data;
+                highlightActivePage();
+            })
+            .catch(err => {
+                console.error("Navbar Error:", err);
+                placeholder.innerHTML = `<p style="color:red; padding:20px;">
+                    Error loading navbar. If testing locally, please use VS Code 'Live Server'.
+                </p>`;
+            });
+    }
 });
 
 function highlightActivePage() {
-    // This logic finds which page you are on and colors the link Ninja Red
-    const currentPage = window.location.pathname.split("/").pop();
-    const links = document.querySelectorAll(".nav-link, .b-link");
-    links.forEach(link => {
+    const currentPage = window.location.pathname.split("/").pop() || "index.html";
+    document.querySelectorAll(".nav-link, .b-link").forEach(link => {
         if (link.getAttribute("href") === currentPage) {
-            link.style.color = "var(--ninja-red)";
-            link.style.fontWeight = "bold";
+            link.classList.add("active-link");
         }
     });
 }

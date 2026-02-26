@@ -2,60 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Progress | Ninja Portal</title>
     <link rel="stylesheet" href="style.css">
     <script src="auth.js"></script>
     <script src="nav-loader.js" defer></script>
+    <title>Progress | Ninja Portal</title>
 </head>
 <body>
     <div id="nav-placeholder"></div>
-
     <main class="main-content">
-        <div class="header-flex">
-            <h1>Ninja Progress</h1>
-            <div id="role-badge" class="badge">Access: ${currentUser.role}</div>
-        </div>
-
-        <div id="student-container" class="student-grid">
+        <h1>Student Progress</h1>
+        <div id="student-container">
             </div>
     </main>
 
     <script>
-        const students = [
-            { id: 101, name: "Alex", rank: "Yellow Belt", stripes: 2 },
-            { id: 102, name: "Sam", rank: "White Belt", stripes: 1 }
-        ];
+        const students = [{ name: "Alex", rank: "Yellow Belt", stripes: 2 }];
+        const session = JSON.parse(localStorage.getItem("ninjaSession"));
 
-        function initProgress() {
-            const container = document.getElementById('student-container');
-            
-            container.innerHTML = students.map(ninja => `
-                <div class="card">
-                    <div class="header-flex">
-                        <h3>${ninja.name}</h3>
-                        <span class="badge" style="background:#333">${ninja.rank}</span>
-                    </div>
-                    
-                    <p>Stripes (${ninja.stripes}/4)</p>
-                    <div class="progress-bar">
-                        <div class="fill" style="width: ${ninja.stripes * 25}%"></div>
-                    </div>
-
-                    ${currentUser.role === 'sensei' ? `
-                        <div class="sensei-panel">
-                            <label>Sensei Tools:</label>
-                            <div class="button-group">
-                                <button class="btn-small" onclick="alert('Stripe Added')">+ Stripe</button>
-                                <button class="btn-small" onclick="alert('Promoted')">Promote</button>
-                            </div>
-                        </div>
-                    ` : ''}
-                </div>
-            `).join('');
-        }
-
-        window.onload = initProgress;
+        const container = document.getElementById('student-container');
+        container.innerHTML = students.map(s => `
+            <div class="card">
+                <h3>${s.name} <span class="badge">${s.rank}</span></h3>
+                <div class="progress-bar"><div class="fill" style="width:${s.stripes * 25}%"></div></div>
+                ${session.role === 'sensei' ? '<button class="card" style="margin-top:10px; width:100%">+ Add Stripe (Sensei Only)</button>' : ''}
+            </div>
+        `).join('');
     </script>
 </body>
 </html>
